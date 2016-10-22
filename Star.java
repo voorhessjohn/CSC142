@@ -43,13 +43,15 @@ public class Star {
 
 		// the details of the drawing are in written in the private method draw()
 		this.draw();
-		this.doAction();
+		//this.doAction();
 	}
 
 	public void doAction()
 	{
+		while(true){
 		starUp.moveBy(-50,0);
 		starDown.moveBy(-50,0);
+		}
 	}
 	private void draw()
 	{
