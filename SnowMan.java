@@ -17,6 +17,12 @@ public class SnowMan {
 	private double scale;
 	private Rectangle bottomHat;
 	private Rectangle topHat;
+	private Line leftArm ;
+	private Line leftTopFinger; 
+	private Line leftBottomFinger; 
+	private Line rightArm; 
+	private Line rightTopFinger; 		
+	private Line rightBottomFinger;
 
 	/**
 	 * Create a snow man in at location (x,y) in the GWindow window.
@@ -38,6 +44,12 @@ public class SnowMan {
 		this.window = window;
 		this.bottomHat = new Rectangle();
 		this.topHat = new Rectangle();
+		this.leftArm = new Line();
+		this.leftTopFinger = new Line();
+		this.leftBottomFinger = new Line();
+		this.rightArm = new Line();
+		this.rightTopFinger = new Line();	
+		this.rightBottomFinger = new Line();
 
 		// Put the details of the drawing in a private method
 		this.draw();
@@ -46,8 +58,17 @@ public class SnowMan {
 	}
 	public void moveArmsAndHat()
 	{
+		while(true){
 		bottomHat.moveBy(-50,60);
 		topHat.moveBy(60,-20);
+		
+		leftArm.rotateAround(7,80,20);
+		leftTopFinger.rotateAround(13,20,-20); 
+		leftBottomFinger.rotateAround(400,400,10); 
+		rightArm.rotateAround(13,200,-20); 
+		rightTopFinger.rotateAround(130,20,-20); 		
+		rightBottomFinger.rotateAround(13,20,-200);
+		}
 	}
 
 	/** Draw in the graphics window a snow man at location (x,y) */
