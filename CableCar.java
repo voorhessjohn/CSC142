@@ -54,7 +54,7 @@ public class CableCar {
 
 		// The details of the drawing are in a private method
 		this.draw();
-		//this.move();
+		this.move();
 
 	}
 	
@@ -62,20 +62,20 @@ public class CableCar {
 
 	public void move()
 	{
-		if (isMovingRight){
+		while (isMovingRight){
 			car.moveBy(50,0);
 			leftWindow.moveBy(-50,0);
 			rightWindow.moveBy(-50,0);
 			rightDiagCable.moveBy(-50,0);
 			leftDiagCable.moveBy(-50,0);
 				}
-		else{
+		/*else{
 			car.moveBy(-5,0);
 			leftWindow.moveBy(-5,0);
 			rightWindow.moveBy(-5,0);
 			rightDiagCable.moveBy(-5,0);
 			leftDiagCable.moveBy(-5,0);
-		}
+		}*/
 			
 	}
 
