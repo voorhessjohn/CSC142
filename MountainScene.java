@@ -10,7 +10,7 @@ import java.awt.Color; // access the Color class
  * in hw1, then complete the method addGraphicsElements. Leave all the rest of
  * the code unchanged.
  * 
- * @author Your name here
+ * @author John Voorhess
  */
 
 public class MountainScene extends GWindowEventAdapter {
