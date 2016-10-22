@@ -51,15 +51,17 @@ public class Tree {
 
 		// the details of the drawing are in written in the private method draw()
 		this.draw();
-		this.flashOrnaments();
+		//this.flashOrnaments();
 	}
 
 	public void flashOrnaments()
 	{
+		while(true){
 		foliage.moveBy(50,-70);
 		foliageMiddle.moveBy(500,0);
 		foliageTop.moveBy(-20,0);
 		trunk.moveBy(300,0);
+		}
 	}
 	private void draw()
 	{
