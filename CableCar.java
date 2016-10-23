@@ -23,6 +23,8 @@ public class CableCar {
 	private Line rightDiagCable;
 	
 	private boolean isMovingRight;
+	
+	
 
 
 	/**
@@ -63,11 +65,11 @@ public class CableCar {
 	public void move()
 	{
 		while (isMovingRight){
-			car.moveBy(50,0);
-			leftWindow.moveBy(-50,0);
-			rightWindow.moveBy(-50,0);
-			rightDiagCable.moveBy(-50,0);
-			leftDiagCable.moveBy(-50,0);
+			this.car.moveBy(50,0);
+			this.leftWindow.moveBy(-50,0);
+			this.rightWindow.moveBy(-50,0);
+			this.rightDiagCable.moveBy(-50,0);
+			this.leftDiagCable.moveBy(-50,0);
 				}
 		/*else{
 			car.moveBy(-5,0);
