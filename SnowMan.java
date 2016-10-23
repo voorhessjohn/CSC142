@@ -53,7 +53,7 @@ public class SnowMan {
 
 		// Put the details of the drawing in a private method
 		this.draw();
-		//this.moveArmsAndHat();
+		this.moveArmsAndHat();
 
 	}
 	public void moveArmsAndHat()
