@@ -43,7 +43,7 @@ public class Star {
 
 		// the details of the drawing are in written in the private method draw()
 		this.draw();
-		//this.doAction();
+		this.doAction();
 	}
 
 	public void doAction()
