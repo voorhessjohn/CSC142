@@ -1,4 +1,8 @@
 # CSC142 Assignment Two
+
+Finished.  This version will be submitted.  Code was changed from a previous version mentioned below.
+
+PREVIOUSLY:
 I am supposed to adapt my code from Assignment One to incorporate movement into MountainScene with movement functions from the uwcse graphics library.  As of this commit, nothing moves and when the individual movement methods are initialized in the public constructor of each class, only a single tree appears on the screen.
 
 There is a conditional set up on the move() function for CableCar.  This is semi-permanently set to true for testing.  This will eventually test whether cableCar is off the screen to the left or right and reverse the direction.
