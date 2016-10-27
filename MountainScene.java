@@ -61,9 +61,9 @@ public class MountainScene extends GWindowEventAdapter {
 		this.window.suspendRepaints();
 		this.snowMan1.moveArmsAndHat();
 		this.snowMan2.moveArmsAndHat();
-		//this.tree1.flashOrnaments();
-		//this.tree2.flashOrnaments();
-		//this.tree3.flashOrnaments();
+		this.tree1.flashOrnaments();
+		this.tree2.flashOrnaments();
+		this.tree3.flashOrnaments();
 		this.cableCar.move();
 		this.star1.doAction();
 		this.window.resumeRepaints();
