@@ -23,6 +23,8 @@ public class SnowMan {
 	private Line rightArm; 
 	private Line rightTopFinger; 		
 	private Line rightBottomFinger;
+	private boolean isMovingUp;
+	private int counter;
 
 	/**
 	 * Create a snow man in at location (x,y) in the GWindow window.
@@ -50,25 +52,58 @@ public class SnowMan {
 		this.rightArm = new Line();
 		this.rightTopFinger = new Line();	
 		this.rightBottomFinger = new Line();
+		this.isMovingUp = true;
+		this.counter = 1;
 
 		// Put the details of the drawing in a private method
 		this.draw();
 		this.moveArmsAndHat();
 
 	}
+	/*rotateAround is HARD! I used moveBy() since you mentioned that it would be an acceptable alternative to 
+	 * rotateAround. I was able to create an animation with rotateAround, but the result was as if the arms and 
+	 * fingers of the snowmen would fly off of their bodies randomly and reassemble, seemingly out of nowhere.  
+	 * I'm sure that with more time I would be able to figure it out. */
 	public void moveArmsAndHat()
 	{
-		while(true){
-		bottomHat.moveBy(-50,60);
-		topHat.moveBy(60,-20);
 		
-		leftArm.rotateAround(7,80,20);
-		leftTopFinger.rotateAround(13,20,-20); 
-		leftBottomFinger.rotateAround(400,400,10); 
-		rightArm.rotateAround(13,200,-20); 
-		rightTopFinger.rotateAround(130,20,-20); 		
-		rightBottomFinger.rotateAround(13,20,-200);
+		if (isMovingUp && this.y>190){
+			isMovingUp = false;
 		}
+		
+		if (isMovingUp==false && this.y<190){
+			isMovingUp = true;
+		}
+		//The counters below are not used anymore.  They are an artifact of an earlier attempt at a solution.
+		if(isMovingUp){
+			this.y += 20;
+			bottomHat.moveBy(0,20);
+			topHat.moveBy(0,20);
+			leftArm.moveBy(0,20);
+			leftTopFinger.moveBy(0,20); 
+			leftBottomFinger.moveBy(0,20); 
+			rightArm.moveBy(0,20); 
+			rightTopFinger.moveBy(0,20); 		
+			rightBottomFinger.moveBy(0,20);
+//			counter -= 2;
+		}
+		
+		else{
+			this.y -= 20;
+			bottomHat.moveBy(0,-20);
+			topHat.moveBy(0,-20);
+			leftArm.moveBy(0,-20);
+			leftTopFinger.moveBy(0,-20); 
+			leftBottomFinger.moveBy(0,-20); 
+			rightArm.moveBy(0,-20); 
+			rightTopFinger.moveBy(0,-20); 		
+			rightBottomFinger.moveBy(0,-20);
+//			counter +=1;
+			
+		}
+		
+		
+		
 	}
 
 	/** Draw in the graphics window a snow man at location (x,y) */
@@ -92,17 +127,17 @@ public class SnowMan {
 		
 		/*Next, the lines for arms are drawn. 
 		 * The naming convention makes it easier to align the finger points to the arms */
-		Line leftArm = new Line(x+(int)(7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(80*scale),Color.black);
-		Line leftTopFinger = new Line(x+(int)(-7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(76*scale),Color.black);
-		Line leftBottomFinger = new Line(x+(int)(-7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(84*scale),Color.black);
-		Line rightArm = new Line(x+(int)(23*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(80*scale),Color.black);
-		Line rightTopFinger = new Line(x+(int)(37*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(76*scale),Color.black);
-		Line rightBottomFinger = new Line(x+(int)(37*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(84*scale),Color.black);
+		this.leftArm = new Line(x+(int)(7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(80*scale),Color.black);
+		this.leftTopFinger = new Line(x+(int)(-7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(76*scale),Color.black);
+		this.leftBottomFinger = new Line(x+(int)(-7*scale),y+(int)(80*scale),x+(int)(-13*scale),y+(int)(84*scale),Color.black);
+		this.rightArm = new Line(x+(int)(23*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(80*scale),Color.black);
+		this.rightTopFinger = new Line(x+(int)(37*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(76*scale),Color.black);
+		this.rightBottomFinger = new Line(x+(int)(37*scale),y+(int)(80*scale),x+(int)(45*scale),y+(int)(84*scale),Color.black);
 		
 		/*The rectangle elements of the hat are created next. 
 		 * I initially used the parameters of the topBall to align the bottom rectangle of the hat*/
-		Rectangle bottomHat = new Rectangle(x+(int)(4*scale),y+(int)(61*scale),(int)(21*scale),(int)(3*scale),Color.black,true);
-		Rectangle topHat = new Rectangle(x+(int)(10*scale),y+(int)(51*scale),(int)(10*scale),(int)(10*scale),Color.black,true);
+		this.bottomHat = new Rectangle(x+(int)(4*scale),y+(int)(61*scale),(int)(21*scale),(int)(3*scale),Color.black,true);
+		this.topHat = new Rectangle(x+(int)(10*scale),y+(int)(51*scale),(int)(10*scale),(int)(10*scale),Color.black,true);
 		
 		/*The triangle nose was easiest aligned to the mouth in the Oval elements above. 
 		 * From there, it was a matter of stretching one set of coordinates to stretch it into the shape of a carrot*/
