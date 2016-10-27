@@ -17,10 +17,10 @@ public class CableCar {
 	
 	private double scale;
 	private Rectangle car;
-	private Rectangle leftWindow;
-	private Rectangle rightWindow;
-	private Line leftDiagCable;
-	private Line rightDiagCable;
+	public Rectangle leftWindow;
+	public Rectangle rightWindow;
+	public Line leftDiagCable;
+	public Line rightDiagCable;
 	
 	private boolean isMovingRight;
 	
@@ -64,13 +64,44 @@ public class CableCar {
 
 	public void move()
 	{
-		while (isMovingRight){
-			this.car.moveBy(50,0);
-			this.leftWindow.moveBy(-50,0);
-			this.rightWindow.moveBy(-50,0);
-			this.rightDiagCable.moveBy(-50,0);
-			this.leftDiagCable.moveBy(-50,0);
-				}
+		//if x becomes greater than the width of the window, the cable car will move in the other direction.
+		if (isMovingRight && this.x>this.window.getWindowWidth()) {
+			isMovingRight = false;
+		}
+		
+		if (isMovingRight==false && this.x<0) {
+			isMovingRight = true;
+		}
+		
+		if (isMovingRight){
+			//the value of the variable x is incremented here.
+			this.x += 10;
+			this.car.moveBy(10,0);
+			this.leftWindow.moveBy(10,0);
+			this.rightWindow.moveBy(10,0);
+			this.rightDiagCable.moveBy(10,0);
+			this.leftDiagCable.moveBy(10,0);
+		} else {
+			//the value of the variable x is decremented here.
+			this.x -= 10;
+			this.car.moveBy(-10,0);
+			this.leftWindow.moveBy(-10,0);
+			this.rightWindow.moveBy(-10,0);
+			this.rightDiagCable.moveBy(-10,0);
+			this.leftDiagCable.moveBy(-10,0);
+		}
+		/*I am leaving the code below as an artifact document of the process by which I came to the solution at the end.
+		 * Admittedly, that solution was reached with help from my instructor.*/
+		
+		
+//		 int a = 10;
+//		 System.out.println(a);
+//		 this.car.moveBy(10,0);
+//		 this.leftWindow.moveBy(10,0);
+//		 this.rightWindow.moveBy(10,0);
+//		 this.rightDiagCable.moveBy(10,0);
+//		 this.leftDiagCable.moveBy(10,0);
+				//}
 		/*else{
 			car.moveBy(-5,0);
 			leftWindow.moveBy(-5,0);
@@ -78,6 +109,7 @@ public class CableCar {
 			rightDiagCable.moveBy(-5,0);
 			leftDiagCable.moveBy(-5,0);
 		}*/
+			
 			
 	}
 
@@ -92,19 +124,19 @@ public class CableCar {
 		 * with several parts of this project.*/
 		//The cable element of CableCar.java is created with several rectangles from the uwcse graphics jar.
 		//Rectangle car is the body of the car
-		Rectangle car = new Rectangle(x+(int)(4*scale),
+		this.car = new Rectangle(x+(int)(4*scale),
 									  y+(int)(61*scale),
 									  (int)(300*scale),
 									  (int)(150*scale),
 									  Color.blue,true);
 		//Rectangle leftWindow is the left window of the car
-		Rectangle leftWindow = new Rectangle(x+(int)(10*scale),
+		this.leftWindow = new Rectangle(x+(int)(10*scale),
 											 y+(int)(71*scale),
 											 (int)(140*scale),
 											 (int)(90*scale),
 											 Color.white,true);
 		//Rectangle rightWindow is the right window of the car
-		Rectangle rightWindow = new Rectangle(x+(int)(160*scale),
+		this.rightWindow = new Rectangle(x+(int)(160*scale),
 											  y+(int)(71*scale),
 											  (int)(140*scale),
 											  (int)(90*scale),
@@ -116,9 +148,9 @@ public class CableCar {
 		//Line rightDiagCable is the right side of the rigging that suspends the cable car
 		Line topCable = new Line(x-(int)(400*scale),y+(int)(10*scale),
 								 x+(int)(800*scale),y+(int)(10*scale),Color.black);
-		Line leftDiagCable = new Line(x+(int)(2*scale),y+(int)(61*scale),
+		this.leftDiagCable = new Line(x+(int)(2*scale),y+(int)(61*scale),
 									  x+(int)(150*scale),y+(int)(10*scale),Color.black);
-		Line rightDiagCable = new Line(x+(int)(300*scale),y+(int)(60*scale),
+		this.rightDiagCable = new Line(x+(int)(300*scale),y+(int)(60*scale),
 									   x+(int)(150*scale),y+(int)(10*scale),Color.black);
 		
 		//adding the rectangles and lines on the window.
