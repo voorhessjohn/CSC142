@@ -50,7 +50,7 @@ public class MountainScene extends GWindowEventAdapter {
 
 		// Add the graphics elements
 		this.addGraphicsElements();
-
+		
 		// Code to do the animation
 		this.window.addEventHandler(this);
 		this.window.startTimerEvents(150);
@@ -61,9 +61,9 @@ public class MountainScene extends GWindowEventAdapter {
 		this.window.suspendRepaints();
 		this.snowMan1.moveArmsAndHat();
 		this.snowMan2.moveArmsAndHat();
-		this.tree1.flashOrnaments();
-		this.tree2.flashOrnaments();
-		this.tree3.flashOrnaments();
+		//this.tree1.flashOrnaments();
+		//this.tree2.flashOrnaments();
+		//this.tree3.flashOrnaments();
 		this.cableCar.move();
 		this.star1.doAction();
 		this.window.resumeRepaints();
@@ -92,11 +92,12 @@ public class MountainScene extends GWindowEventAdapter {
 		this.cableCar = new CableCar(350, 100, 1, this.window);
 		this.tree1 = new Tree(200, 120, 0.8, this.window);
 		this.tree2 = new Tree(250, 250, 1.2, this.window);
+		// Full disclosure - I changed the scale of the snowmen, which you said was ok, because I was having trouble scaling the action.
 		this.snowMan1 = new SnowMan(100, 200, 1, this.window);
-		this.snowMan2 = new SnowMan(400, 150, 0.7, this.window);
+		this.snowMan2 = new SnowMan(400, 200, 1, this.window);
 
 		// Complete the line of code below to instantiate an object of the type
 		// that you created in homework #1
-		this.star1 = new Star(200,200,3,this.window);
+		this.star1 = new Star(200,-225,3,this.window);
 	}
 }
