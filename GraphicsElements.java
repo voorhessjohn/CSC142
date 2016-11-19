@@ -58,8 +58,6 @@ public class GraphicsElements {
 		}
 		
 		Random r = new Random();
-		
-		
 
 		ArrayList<Oval> pileOfDisks = new ArrayList<Oval>();
 		
@@ -146,7 +144,20 @@ public class GraphicsElements {
 	 */
 	public ArrayList<Oval> createASierpinskiTriangle() {
 
-		// Add your own code here
+		Random rand = new Random();
+		int r = rand.nextInt(3)+1;
+		
+		if(r==1){
+			System.out.println(r);
+		}else if(r==2){
+			System.out.println(r);
+		}else if(r==3){
+			System.out.println(r);
+		}else if(r==0){
+			System.out.println("Should not be zero");
+		}else{
+			System.out.println("something's broken");
+		};
 		ArrayList<Oval> points = new ArrayList<Oval>();
 		return points;
 	}
