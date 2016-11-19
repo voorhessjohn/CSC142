@@ -143,22 +143,130 @@ public class GraphicsElements {
 	 * JOptionPane.showMessageDialog)and ask for it again.
 	 */
 	public ArrayList<Oval> createASierpinskiTriangle() {
-
-		Random rand = new Random();
-		int r = rand.nextInt(3)+1;
 		
+		
+		Input in = new Input();
+		int numberOfPoints = in.readIntDialog("Enter desired number of points (up to "+MAXIMUM_NUMBER_OF_POINTS+")");
+		while (numberOfPoints>MAXIMUM_NUMBER_OF_POINTS||numberOfPoints<=0){
+			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_POINTS+".");	
+			numberOfPoints = in.readIntDialog("Enter desired number of points (up to "+MAXIMUM_NUMBER_OF_POINTS+")");
+		}
+		
+		/*A GARBAGE FIRST ATTEMPT IS LEFT AS AN ARTIFACT BELOW
 		if(r==1){
+			Oval tmp = p1;
+			points.add(tmp);
 			System.out.println(r);
 		}else if(r==2){
+			Oval tmp = p2;
 			System.out.println(r);
+			points.add(tmp);
 		}else if(r==3){
+			Oval tmp = p3;
 			System.out.println(r);
+			points.add(tmp);
 		}else if(r==0){
 			System.out.println("Should not be zero");
 		}else{
 			System.out.println("something's broken");
 		};
+		*/
+		
+
+       
 		ArrayList<Oval> points = new ArrayList<Oval>();
+
+		/*I have stored the x and y coordinates for each of 
+		*the three ordinal Ovals that determine the original
+		*triangle that will be subdivided to form the final shape*/
+		int p1x = WIDTH/2;
+		int p1y = 0;
+		int p2x = 1;
+		/*the y-value of Oval p2 is equal to the HEIGHT constant minus one, 
+		 * which makes it visible in the window rather than plotting it on the 
+		 * border.
+		 */
+		int p2y = HEIGHT-1;
+		/*The x-value of p3 is established as the WIDTH constant minus one,
+		 * allowing it to be plotted entirely visible in the graphics window*/
+		int p3x = WIDTH-1;
+		/*As is the odd nature of plotting these graphics, the y-value
+		 * increases as a point moves downward. To keep p3 visible, one is
+		 * subtracted from the integer value of the constant, HEIGHT. Otherwise,
+		 * the y-value would be equivalent to the lower border of the window*/
+		int p3y = HEIGHT-1;
+		
+		// Oval p1 is located at the top, middle of the graphics window
+		Oval p1 = new Oval(p1x,p1y,2,2,Color.blue,true);
+		// Oval p2 is located at the bottom, left corner of the graphics window
+        Oval p2 = new Oval(p2x,p2y,2,2,Color.blue,true);
+        // Oval p3 is located at the bottom, right corner of the graphics window
+        Oval p3 = new Oval(p3x,p3y,2,2,Color.blue,true);
+
+        //an instance of the Random class is instantiated below
+        Random rand = new Random();
+        //The first instance of Oval p is initialized with the values of p1
+        Oval p = p1;
+
+        for (int i = 0; i < numberOfPoints; i++) {
+        	/**the method nextInt of Java's Random() class takes an 
+        	 * integer as a parameter and return a random value between 
+        	 * zero(inclusive) and the parameter(exclusive). To change the 
+        	 * return to be exclusive of zero and inclusive of the parameter,
+        	 * I've added 1 to the return value and stored it as the newly-initialized 
+        	 * integer randInt.
+        	 */
+        	
+            int randInt = rand.nextInt(3) + 1;
+            //integers x and y must be initialized to a value.
+            int x = 0;
+            int y = 0;
+
+            if (randInt == 1) {
+            	 /*If the randInt value from this iteration
+            	 * is 1, the location coordinates of initial Oval p1
+            	 * are stored in x and y.*/              
+            	x = p1x;
+                y = p1y;
+
+            } else if (randInt == 2) {
+            	/*If the randInt value from this iteration
+            	 * is 2, the location coordinates of initial Oval p2
+            	 * are stored in x and y.*/
+                x = p2x;
+                y = p2y;
+
+            } else if (randInt == 3) {
+            	/*If the randInt value from this iteration
+               	 * is 3, the location coordinates of initial Oval p3
+               	 * are stored in x and y.*/
+                x = p3x;
+                y = p3y;
+            } 
+            /**halfX and halfY are the coordinates of the oval q whose location
+             * is to be the halfway point the coordinates of the last Oval 
+             * added to the list (or p1 in the first iteration) and the 
+             * coordinates of the Oval determined by randInt*/
+            
+          /*the halfway point of the x values is determined 
+           * by adding the values and dividing the sum by 2
+           */
+            /**The Oval class features the methods getX and getY, 
+        	 * which return the x and y values of the Oval's parameters,
+        	 * the coordinates of the upper left corner of the Oval's
+        	 * rectangle boundary.*/
+            int halfX = (p.getX() + x) / 2;
+            /*the halfway point of the y values is determined 
+             * by adding the values and dividing the sum by 2
+             */
+            int halfY = (p.getY() + y) / 2;
+
+            Oval q = new Oval(halfX, halfY, 2, 2, Color.blue, true);
+            //add the new Oval, q, to ArrayList points
+            points.add(q);            
+            p = q;
+          //the value of p now equals the last Oval that was added to the ArrayList
+        }
 		return points;
 	}
 
