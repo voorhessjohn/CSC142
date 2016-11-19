@@ -89,11 +89,13 @@ public class GraphicsElements {
 	/*JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
 	public ArrayList<Rectangle> createACheckeredBoard() {
 		Input in = new Input();
-		int nr = in.readIntDialog("Num of Rows?");
-		while (nr>MAXIMUM_NUMBER_OF_ROWS||nr<0){
-			JOptionPane.showMessageDialog(null,"Enter a number between zero and one hundred.");	
-			break;
+		int nr = in.readIntDialog("Enter desired number of rows (up to fifty)");
+		while (nr>MAXIMUM_NUMBER_OF_ROWS||nr<=0){
+			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_ROWS+".");	
+			nr = in.readIntDialog("Num of Rows?");
 		}
+		
+		
 			
 		ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
 		
