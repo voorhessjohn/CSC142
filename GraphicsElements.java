@@ -51,7 +51,11 @@ public class GraphicsElements {
 	 */
 	public ArrayList<Oval> createAPileOfDisks() {
 		Input in = new Input();
-		int N = in.readIntDialog("Num of Disks?");
+		int N = in.readIntDialog("Enter desired number of disks (up to "+ MAXIMUM_NUMBER_OF_DISKS+")");
+		while (N>MAXIMUM_NUMBER_OF_DISKS||N<=0){
+			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_DISKS+".");	
+			N = in.readIntDialog("Num of Rows?");
+		}
 		
 		Random r = new Random();
 		
@@ -89,7 +93,7 @@ public class GraphicsElements {
 	/*JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
 	public ArrayList<Rectangle> createACheckeredBoard() {
 		Input in = new Input();
-		int nr = in.readIntDialog("Enter desired number of rows (up to fifty)");
+		int nr = in.readIntDialog("Enter desired number of rows (up to "+MAXIMUM_NUMBER_OF_ROWS+")");
 		while (nr>MAXIMUM_NUMBER_OF_ROWS||nr<=0){
 			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_ROWS+".");	
 			nr = in.readIntDialog("Num of Rows?");
