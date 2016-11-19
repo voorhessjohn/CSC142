@@ -1,0 +1,170 @@
+import uwcse.io.Input;
+import java.text.DecimalFormat; // use the Input class
+
+import java.math.*;
+import java.text.DecimalFormat; // to format the output
+
+/**
+ * Homework 3 <br>
+ * Simulating a purchase in Canada paid in US dollars
+ * 
+ * @author <name>
+ */
+
+public class CanadianGiftShop {
+
+	// Constants
+	/** Exchange rate 1 US dollar = RATE Canadian dollar */
+	public final double RATE = 1.16;
+
+	/** Price of a jar of maple syrup in Canadian dollars before taxes */
+	public final double JAR_PRICE = 5.95;
+
+	/**
+	 * Price of photograph of the city of Victoria in Canadian dollars before
+	 * taxes
+	 */
+	public final double PHOTO_PRICE = 7.65;
+
+	/** Price of a beaver hat in Canadian dollars before taxes */
+	public final double HAT_PRICE = 16.35;
+
+	/** Maximum allowed number of purchased items for each item */
+	public final int MAX_ITEM = 100;
+	
+	public final String OVER_MAX = "We don't have that many! \nPlease enter a quantity less than "+ MAX_ITEM;
+
+	/** Tax rate */
+	public final double TAX_RATE = 0.093;
+
+	// instance variables
+	// number of purchased jars of Canadian stuff
+	private int jarNumber;
+
+	// number of purchased photographs of Canadian things
+	private int photoNumber;
+
+	// number of purchased beaver hats
+	private int hatNumber;
+
+	// 2 digits after the decimal point for doubles
+	private DecimalFormat twoDigits = new DecimalFormat("0.00");
+	
+	//allows to take user input
+	private Input input = new Input();
+	
+	//double used to store the order subtotal
+	private double subTotal;
+	
+	//double used to store USD payment converted to CAD
+	private double convertedPayment;
+	
+	//double that stores the total of the converted payment in Canadian pennies
+	private double changePennies;
+	
+	//double that stores the total charges plus tax
+	private double taxedTotal;
+	
+	//double that stores the tendered amount of US dollars
+	private double tenderedCash;
+	
+	
+	
+	
+	/**
+	 * Takes and processes the order from the customer
+	 */
+	public void takeAndProcessOrder() {
+		// Here is a possible series of steps: call some other (private)
+		// methods to do each step.
+
+		// Display the items and their prices
+		System.out.println("Welcome to Canada friend! \n"
+				+ "\n"
+				+ "These are the items we currently have (no tax included): ");
+		
+		// Get the Customer's order	
+		this.itemList();
+		System.out.println();
+		/* The following prompts employ the checkQuantity() method to 
+		 * ensure that the quantity requested is less than the maximum quantity allowed
+		 */
+		this.jarNumber = (int) input.readDouble("How many jars of Canadian stuff would you like?");
+		if(checkQuantity(this.jarNumber)){
+			System.out.println(OVER_MAX);
+		}
+		
+		this.photoNumber = (int) input.readDouble("How many photos of Canadian things would you like?");
+		if(checkQuantity(this.photoNumber)){
+			System.out.println(OVER_MAX);
+		}
+			
+		this.hatNumber = (int) input.readDouble("How many hats of the finest Canadian fur would you like?");
+		if(checkQuantity(this.hatNumber)){
+			System.out.println(OVER_MAX);
+		}
+		subTotal = jarNumber*JAR_PRICE+photoNumber*PHOTO_PRICE+hatNumber+HAT_PRICE;
+		System.out.println("Your purchase total including tax is "+ twoDigits.format(subTotal*(1+TAX_RATE))+ "CA");	
+		
+		//calculate the order total and display it to the user
+		
+		// Get the user's USD payment
+		double tenderedCash = input.readDouble("Enter your payment amount: ");
+		
+		// The following loop ensures that the payment is enough to cover the total.
+		while(this.tenderedCash*RATE<subTotal*TAX_RATE){
+			this.tenderedCash = input.readDouble("That's not enough. Enter a bigger number.");
+		}
+		
+		//prompt the user to enter a payment until the amount is positive
+		while(tenderedCash < 0.0)
+		{
+			tenderedCash = input.readDouble("No negative numbers allowed! \nEnter your payment amount: "); 
+		}
+		
+		//convertedPayment stores the CAD equivalent of the USD payment.
+	    this.convertedPayment = tenderedCash*RATE;
+		this.taxedTotal = subTotal*(1+TAX_RATE);
+		this.changePennies = 100*(convertedPayment-taxedTotal);
+		
+		/*This series of print lines count out the change to the customer*/
+		System.out.println("You gave "+twoDigits.format(this.tenderedCash)+"USD, which is "+twoDigits.format(this.convertedPayment)+"CAD");
+		System.out.println("Your change is: "+twoDigits.format(this.changePennies/100)+"CAD");
+		System.out.println((int)(this.changePennies)/(2000)+" 20 dollar bills.");
+		System.out.println((int)(this.changePennies)%(2000)/(1000)+" 10 dollar bills.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)/(500)+" 5 dollar bills.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)%(500)/(100)+" 1 dollar bills.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)%(500)%(100)/(25)+" quarters.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)%(500)%(100)%(25)/(10)+" dimes.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)%(500)%(100)%(25)%(10)/(5)+" nickels.");
+		System.out.println((int)(this.changePennies)%(2000)%(1000)%(500)%(100)%(25)%(10)%(5)+" pennies.");
+		System.out.println("Thanks for stopping by.");
+	}
+	
+	/**
+	 * Displays the items for sale and their prices in Canadian dollars
+	 */
+	private void itemList() {
+		System.out.println("A JAR - "+ JAR_PRICE +"\n"+
+						   "A PHOTO - "+ PHOTO_PRICE + "\n"+
+						   "A HAT - "+ HAT_PRICE + "\n"+
+						   "The above prices do not include any tax, which is "+ TAX_RATE*100 +"%.\n"+
+						   "Our current exchange rate is 1 Canadian dollar = "+ RATE +" US dollars.\n");
+	}
+	
+	/*checkQuantity() is a method that ensures the quantity ordered is less than the available quantity*/
+	private boolean checkQuantity(int quantity){
+		if(quantity>100){
+		return true;
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * Entry point of the program
+	 */
+	public static void main(String[] args) {
+		new CanadianGiftShop().takeAndProcessOrder();
+	}
+}
