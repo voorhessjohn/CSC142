@@ -34,6 +34,8 @@ public class GraphicsElements {
 
 	private int nr;
 	
+	ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
+	
 	
 	
 	
@@ -95,11 +97,7 @@ public class GraphicsElements {
 		while (nr>MAXIMUM_NUMBER_OF_ROWS||nr<=0){
 			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_ROWS+".");	
 			nr = in.readIntDialog("Num of Rows?");
-		}
-		
-		
-			
-		ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
+		}		
 		
 		
 		for (int i=0; i<nr; i++){
@@ -285,10 +283,17 @@ public class GraphicsElements {
 	}
 
 	/**
-	 * Flip the 2 colors of the checkboard<br>
+	 * Flip the 2 colors of the checkerboard<br>
 	 * Precondition: graphicsList describes a checkered board
 	 */
 	public ArrayList<Rectangle> flipColorsInCheckeredBoard(ArrayList<Rectangle> graphicsList) {
+		for (int i = 0; i < squares.size(); i++) {
+			if(squares.get(i).getColor()==Color.blue){
+				squares.get(i).setColor(Color.red);
+			}else{
+				squares.get(i).setColor(Color.blue);
+			};
+		}
 		
 		// Add your own code here
 		return graphicsList;
