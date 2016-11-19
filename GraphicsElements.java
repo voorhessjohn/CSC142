@@ -96,7 +96,7 @@ public class GraphicsElements {
 		int nr = in.readIntDialog("Enter desired number of rows (up to "+MAXIMUM_NUMBER_OF_ROWS+")");
 		while (nr>MAXIMUM_NUMBER_OF_ROWS||nr<=0){
 			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_ROWS+".");	
-			nr = in.readIntDialog("Num of Rows?");
+			nr = in.readIntDialog("Enter desired number of rows (up to "+MAXIMUM_NUMBER_OF_ROWS+")");
 		}		
 		
 		
@@ -125,9 +125,7 @@ public class GraphicsElements {
 				}
 			}
 		}
-		return squares;
-		
-		
+		return squares;	
 	}
 
 	/**
@@ -287,6 +285,15 @@ public class GraphicsElements {
 	 * Precondition: graphicsList describes a checkered board
 	 */
 	public ArrayList<Rectangle> flipColorsInCheckeredBoard(ArrayList<Rectangle> graphicsList) {
+		/*Since graphicsList is populated by the ArrayList squares, 
+		 *the following loop acts on the ArrayList squares. This loop
+		 *starts at i=0 and pulls each rectangle at position (i) out of the list.
+		 *The conditional tests the value of the color. If the color of the rectangle
+		 *at position(i) is blue, it is reassigned to have the color red.
+		 *in the "else" portion of the loop which catches all other cases,
+		 *the only other possibility is that the rectangle at position (i)
+		 *was red, therefore every rectangle that makes it to the else block
+		 *is set to be blue*/
 		for (int i = 0; i < squares.size(); i++) {
 			if(squares.get(i).getColor()==Color.blue){
 				squares.get(i).setColor(Color.red);
@@ -295,7 +302,6 @@ public class GraphicsElements {
 			};
 		}
 		
-		// Add your own code here
 		return graphicsList;
 
 	}
