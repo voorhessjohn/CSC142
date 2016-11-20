@@ -331,7 +331,13 @@ public class GraphicsElements {
 	 * Precondition: graphicsList describes a Sierpinski triangle
 	 */
 	public ArrayList<Oval> changeColorsInSierpinskiTriangle(ArrayList<Oval> graphicsList) {
-
+		/*The following for loop iterates through the ArrayList points,
+		 * gets the color of the Oval with the method getColor(),
+		 * tests that color and if the color is blue, changes it to red
+		 * using the method setColor;
+		 * if the color is red, it changes it to green using the method
+		 * setColor, and if the Oval is green, setColor() changes
+		 * it back to blue, as per the assignment parameters.*/
 		for (int i = 0; i < points.size(); i++) {
 			if(points.get(i).getColor()==Color.blue){
 				points.get(i).setColor(Color.red);
