@@ -36,6 +36,10 @@ public class GraphicsElements {
 	
 	ArrayList<Rectangle> squares = new ArrayList<Rectangle>();
 	
+	ArrayList<Oval> pileOfDisks = new ArrayList<Oval>();
+	
+	ArrayList<Oval> points = new ArrayList<Oval>();
+	
 	
 	
 	
@@ -61,7 +65,7 @@ public class GraphicsElements {
 		
 		Random r = new Random();
 
-		ArrayList<Oval> pileOfDisks = new ArrayList<Oval>();
+		
 		
 		for (int i=N; i>0; i--){
 			double h = ((double)hmax/(double)N*((double)i+1));
@@ -170,7 +174,7 @@ public class GraphicsElements {
 		
 
        
-		ArrayList<Oval> points = new ArrayList<Oval>();
+		
 
 		/*I have stored the x and y coordinates for each of 
 		*the three ordinal Ovals that determine the original
@@ -178,6 +182,8 @@ public class GraphicsElements {
 		int p1x = WIDTH/2;
 		int p1y = 0;
 		int p2x = 1;
+		
+		
 		/*the y-value of Oval p2 is equal to the HEIGHT constant minus one, 
 		 * which makes it visible in the window rather than plotting it on the 
 		 * border.
@@ -275,13 +281,24 @@ public class GraphicsElements {
 	 * Precondition: graphicsList describes a pile of disks
 	 */
 	public ArrayList<Oval> rotateColorsInPileOfDisks(ArrayList<Oval> graphicsList) {
-
-		// Add your own code here
+		
+		Color firstDiskColor = pileOfDisks.get(0).getColor();
+		for (int i = 0; i < pileOfDisks.size(); i++){
+			// current disk in loop
+			Oval disk = pileOfDisks.get(i);
+			// use the next disk, if last disk use first ones color
+			if (i < pileOfDisks.size()-1){
+				// replace the color with next disk
+				disk.setColor(pileOfDisks.get(i + 1).getColor());
+			} else {
+				disk.setColor(firstDiskColor);
+			}
+		}
 		return graphicsList;
 	}
 
 	/**
-	 * Flip the 2 colors of the checkerboard<br>
+	 * Flip the 2 colors of the checker board<br>
 	 * Precondition: graphicsList describes a checkered board
 	 */
 	public ArrayList<Rectangle> flipColorsInCheckeredBoard(ArrayList<Rectangle> graphicsList) {
@@ -315,7 +332,15 @@ public class GraphicsElements {
 	 */
 	public ArrayList<Oval> changeColorsInSierpinskiTriangle(ArrayList<Oval> graphicsList) {
 
-		// Add your own code here
+		for (int i = 0; i < points.size(); i++) {
+			if(points.get(i).getColor()==Color.blue){
+				points.get(i).setColor(Color.red);
+			}else if(points.get(i).getColor()==Color.red){
+				points.get(i).setColor(Color.green);
+			}else if(points.get(i).getColor()==Color.green){
+				points.get(i).setColor(Color.blue);
+			}
+		}
 		return graphicsList;
 
 	}
