@@ -62,20 +62,29 @@ public class GraphicsElements {
 			JOptionPane.showMessageDialog(null,"Enter a number between zero and "+MAXIMUM_NUMBER_OF_DISKS+".");	
 			N = in.readIntDialog("Num of Rows?");
 		}
-		
+		// a new instance of a random variable is initialized for the random color
 		Random r = new Random();
 
 		
-		
+		/*The loop that adds the disks to the array starts with the largest disk.
+		 * I reversed the direction of the iteration because the original loop
+		 * returned what looked like one big disk. It was adding the disks in the wrong order.*/
 		for (int i=N; i>0; i--){
+			/*Both the height and width of the oval are determined by dividing the maximum
+			 * height by the requested number of disks multiplied by the iterator variable 
+			 * plus one. This starts with a large disk and incrementally steps down.*/
 			double h = ((double)hmax/(double)N*((double)i+1));
+			/* The coordinates of the upper left corner of the oval created by this loop
+			 * is determined by subtracting half of the height and width of the new oval 
+			 * from half of the overall height and width of the window.*/
 			int x = (int)((double)WIDTH/2.0-.5*((double)hmax/(double)N)*(double)(i+1));
 			int y = (int)((double)HEIGHT/2.0-.5*((double)hmax/(double)N)*(double)(i+1));
+			// a random color value is stored in a color variable
 			Color c= new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
+			// a new oval created
 			Oval tmp = new Oval(x,y,(int)h,(int)h,c,true);
-			pileOfDisks.add(tmp);
-			System.out.println(i);
-			
+			// that oval is added to the array
+			pileOfDisks.add(tmp);	
 		}
 		return pileOfDisks;
 		
@@ -106,19 +115,29 @@ public class GraphicsElements {
 		
 		for (int i=0; i<nr; i++){
 			for (int j=0; j<nr; j++){
+				/* the size of the rectangles are determined by dividing 
+				 * the height of the window by the number of rows requested*/
 				int a = HEIGHT/nr;
 				int b = HEIGHT/nr;
+				/* The x-value of the upper left corner of the rectangle is determined 
+				 * by multiplying the iterator variable i by the x-value of the size calculation
+				 * plus a constant to offset the rectangles from the edge of the board.*/
 				int x = i*a+50;
+				/* The y-value of the upper left corner of each rectangle is determined 
+				 * by the value of the inner loop iterator, j, and the y-value of the 
+				 * size calculation.*/
 				int y = j*b;
+				// if the value of the iterator, j, is even, a red rectangle is added to the array
 				if(j%2==0) {
 					if(i%2==0){
 						Rectangle tmp = new Rectangle(x,y,a,b,Color.red,true);
 						squares.add(tmp);
+				// otherwise, a blue rectangle is added
 					}else{
 						Rectangle tmp = new Rectangle(x,y,a,b,Color.blue,true);
 						squares.add(tmp);
 					}
-				} else {
+				}else{
 					if(i%2==0){
 						Rectangle tmp = new Rectangle(x,y,a,b,Color.blue,true);
 						squares.add(tmp);
@@ -356,12 +375,54 @@ public class GraphicsElements {
 	 * part of the pile of disks, return null.<br>
 	 * Precondition: graphicsList describes a pile of disks
 	 */
-	public Color getColorInPileOfDisks(int x, int y, ArrayList<Oval> graphicsList) {
-
-		// Add your own code here
-		Color color = null;
-		return color;
-		
+	public Color getColorInPileOfDisks(int x, int y, ArrayList<Oval> pileOfDisks) {
+		/**The following code takes the x and y values from the mouse click event
+		 * and uses a Pythagorean distance formula like the one found at
+		 * http://www.purplemath.com/modules/distform.htm. I've separated all of the
+		 * components of the formula into their own variables to try to avoid mistakes.*/
+			// x and y from the click event are upconverted to doubles and stored in new variables
+			double clickX = (double)x;
+	        double clickY = (double)y;
+	        // The center point of the window is determined by dividing HEIGHT and WIDTH by 2
+	        double x1 = (double)WIDTH/2.0;
+	        double y1 = (double)HEIGHT/2.0;
+	        // The difference between the two x and y coordinates are stored in a new variable
+	        double deltaX = x1-clickX;
+	        double deltaY = y1-clickY;
+	        // the values of the squared delta values are stored in new variables
+	        double deltaXSquared = deltaX*deltaX;
+	        double deltaYSquared = deltaY*deltaY;
+	        // the sums of the squared values are stored in another variable
+	        double sumOfSquaredDeltas = deltaXSquared+deltaYSquared;
+	        /* the radius used to compare the click event to the radius of disks in the pile
+	         * is stored in it's own variable*/
+	        double clickRadius = Math.sqrt(sumOfSquaredDeltas);
+	        Color color = null;
+	        
+    
+ 
+		for (int i = (pileOfDisks.size()-1); i > 0; i--){
+			// two temporary disks are created for comparison
+			Oval disk1 = pileOfDisks.get(i);
+			Oval disk2 = pileOfDisks.get(i-1);
+			/* if the radius of the theoretical disk marked by the click event is larger than
+			 * the smaller of the two disks used for comparison and smaller than the larger
+			 * of the two disks, the click event is determined to be within the range of the 
+			 * larger of the two disks.*/
+			if (clickRadius < (((double)disk1.getWidth())/2.0) && clickRadius > (((double)disk2.getWidth())/2.0)){
+				// a temporary color variable is set to the color of the larger disk
+				Color colorTmp = disk1.getColor();
+				/* the color variable returned by the method is set to the value of the temporary
+				 * color variable*/ 
+				color = colorTmp;
+			}else{
+				// Otherwise, both of the color variables stay null
+				Color colorTmp = null;
+				color = colorTmp;
+			}
+		}
+		// The value of the color variable is returned by the method.
+		return color;	
 	}
 
 	/**
