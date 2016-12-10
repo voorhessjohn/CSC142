@@ -134,7 +134,7 @@ public class PixelImage
    * @param int[][] array matrix
    * @param Pixel[][] array matrix
    * @param Pixel weighted sum
-   * @return Pixel averaged Pixed Value
+   * @return Pixel averaged Pixel Value
    */
   public Pixel multiplyArrays(int[][] array, Pixel[][] imageArray, int weightedSum)
   {
@@ -151,10 +151,51 @@ public class PixelImage
 			  sumBlue += array[i][j]*imageArray[i][j].blue;
 		  }
 	  }
-	  sumRed /= weightedSum;
-	  sumGreen /= weightedSum;
-	  sumBlue /= weightedSum;
+	  if((sumRed / weightedSum)>0 && (sumRed / weightedSum)<255){
+		  sumRed /= weightedSum;
+	  }else if((sumRed / weightedSum)<0){
+		  sumRed = 0;
+	  }else if((sumRed / weightedSum)>255){
+		  sumRed = 255;
+	  }
+	  
+	  if((sumGreen / weightedSum)>0 && (sumGreen / weightedSum)<255){
+		  sumGreen /= weightedSum;
+	  }else if((sumGreen / weightedSum)<0){
+		  sumGreen = 0;
+	  }else if((sumGreen / weightedSum)>255){
+		  sumGreen = 255;
+	  }
+	  
+	  if((sumBlue / weightedSum)>0 && (sumBlue / weightedSum)<255){
+		  sumBlue /= weightedSum;
+	  }else if((sumBlue / weightedSum)<0){
+		  sumBlue = 0;
+	  }else if((sumBlue / weightedSum)>255){
+		  sumBlue = 255;
+	  }
+	
+	  
 	  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
 	  return sum;
   }
 }
+/*
+ *   if(sumRed>255){
+		  sumRed = 255;
+	  }
+	  else if(sumRed<0){
+		  sumRed = 0;
+	  }
+	  else if(sumGreen>255){
+		  sumGreen = 255;
+	  }
+	  else if(sumGreen<255){
+		  sumGreen = 0;
+	  }	  
+	  else if(sumBlue>255){
+		  sumBlue = 255;
+	  }
+	  else if(sumBlue<255){
+		  sumBlue = 0;
+	  }*/
