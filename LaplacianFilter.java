@@ -1,6 +1,6 @@
 /**
- * <p>applies Laplacian filter</p>
- * @author johnglennvoorhess
+ * <p>applies laplacian filter</p>
+ * @author John Voorhess
  *
  */
 
@@ -10,6 +10,7 @@ public class LaplacianFilter implements Filter
   {
     int [][] laplacian = {{-1,-1,-1},{-1,8,-1},{-1,-1,-1}};
     int weightedSum = 1;
-    pi.computeWeightedAverage(laplacian, weightedSum);
+    String lens = "";
+    pi.computeWeightedAverage(laplacian, weightedSum, lens);
   }
 }

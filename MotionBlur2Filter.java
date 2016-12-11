@@ -1,6 +1,6 @@
 /**
  * <p>applies a motion blur filter opposite of MotionBlurFilter</p>
- * @author johnglennvoorhess
+ * @author John Voorhess
  *
  */
 
@@ -11,8 +11,9 @@ public class MotionBlur2Filter implements Filter
     int [][] motionBlur2 = {{0,0,2},{0,2,0},{2,0,0}};
     int weightedSum = 6;
     int strength = 12;
+    String lens = "";
     for(int i=0;i<=strength;i++){
-    pi.computeWeightedAverage(motionBlur2, weightedSum);
+    pi.computeWeightedAverage(motionBlur2, weightedSum, lens);
     }
   }
 }

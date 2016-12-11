@@ -1,6 +1,6 @@
 /**
- * <p>applies Edgy filter</p>
- * @author johnglennvoorhess
+ * <p>applies edgy filter</p>
+ * @author John Voorhess
  *
  */
 
@@ -10,6 +10,7 @@ public class EdgyFilter implements Filter
   {
     int [][] edgy = {{-1,-1,-1},{-1,9,-1},{-1,-1,-1}};
     int weightedSum = 1;
-    pi.computeWeightedAverage(edgy, weightedSum);
+    String lens = "";
+    pi.computeWeightedAverage(edgy, weightedSum, lens);
   }
 }

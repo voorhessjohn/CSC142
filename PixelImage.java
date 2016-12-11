@@ -109,7 +109,7 @@ public class PixelImage
    * @param weighted sum
    */
   // add a method to compute a new image given weighted averages
-  public void computeWeightedAverage(int[][] input, int weightedSum) 
+  public void computeWeightedAverage(int[][] input, int weightedSum, String lens) 
   {
 	  /*two Pixel arrays are initialized. Both are given the data from
 	   * the loaded image to be sure that both are the same size
@@ -133,7 +133,7 @@ public class PixelImage
 			   * which takes the input array(the matrix of transformation values), the 
 			   * new 3x3 imageArray created in the loop, and the weightedSum value that
 			   * is used to scale the colors back from crazytown.*/
-			  image[row][col] = multiplyArrays(input,imageArray,weightedSum);
+			  image[row][col] = multiplyArrays(input,imageArray,weightedSum, lens);
 		  }
 		  /*The resulting values from the transformation are stored in the 2d Pixel array
 		   * called "image"
@@ -146,10 +146,11 @@ public class PixelImage
    * multiplies two square matrices of the same size (e.g. 3x3)
    * @param int[][] array matrix
    * @param Pixel[][] array matrix
-   * @param Pixel weighted sum
+   * @param int weighted sum
+   * @param String
    * @return Pixel averaged Pixel Value
    */
-  public Pixel multiplyArrays(int[][] array, Pixel[][] imageArray, int weightedSum)
+  public Pixel multiplyArrays(int[][] array, Pixel[][] imageArray, int weightedSum, String lens)
   {
 	  //initialize integer variables for each color channel in Pixel
 	  int sumRed = 0;
@@ -218,10 +219,25 @@ public class PixelImage
 		  sumGreen=0;
 		  sumBlue=0;
 	  }
+	  if(lens=="red"){
+		  sumRed = 255;
+		  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+		  return sum;
+	  }else if(lens=="green"){
+		  sumGreen = 255;
+		  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+		  return sum;
+	  }else if(lens=="blue"){
+		  sumBlue = 255;
+		  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+		  return sum;
+	  }else{
 	  //the three color channels of a new Pixel, called sum are stored.
-	  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+		  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+		  return sum;
+	  }
 	  
-	  return sum;
+	  
   }
 }
 

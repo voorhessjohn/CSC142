@@ -1,6 +1,6 @@
 /**
- * <p>applies Unsharp filter</p>
- * @author johnglennvoorhess
+ * <p>applies unsharp filter</p>
+ * @author John Voorhess
  *
  */
 
@@ -10,6 +10,7 @@ public class UnsharpFilter implements Filter
   {
     int [][] unsharp = {{-1,-2,-1},{-2,28,-2},{-1,-2,-1}};
     int weightedSum = 16;
-    pi.computeWeightedAverage(unsharp, weightedSum);
+    String lens = "";
+    pi.computeWeightedAverage(unsharp, weightedSum, lens);
   }
 }
