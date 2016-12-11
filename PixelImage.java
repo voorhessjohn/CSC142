@@ -105,15 +105,20 @@ public class PixelImage
   }
   /**
    * Computes images from weighted average
-   * @param data The array to pull from
    * @param input array
    * @param weighted sum
    */
   // add a method to compute a new image given weighted averages
   public void computeWeightedAverage(int[][] input, int weightedSum) 
   {
+	  /*two Pixel arrays are initialized. Both are given the data from
+	   * the loaded image to be sure that both are the same size
+	  */
 	  Pixel[][] oldimage = this.getData();
 	  Pixel[][] image = this.getData();
+	  /*The following nested loop creates a 3x3 array of values
+	   * from oldimage to which the transformation will be applied
+	   */
 	  for(int row=1; row<this.height-1; row++){
 		  for(int col=1; col<this.width-1; col++)
 		  {
@@ -123,8 +128,16 @@ public class PixelImage
 					  imageArray[i+1][j+1]=oldimage[row+i][col+j];
 				  }
 			  }
+			  /*Once imageArray is populated with the corresponding data from oldimage,
+			   * imageArray is sent out to be transformed by the method, multiplyArrays,
+			   * which takes the input array(the matrix of transformation values), the 
+			   * new 3x3 imageArray created in the loop, and the weightedSum value that
+			   * is used to scale the colors back from crazytown.*/
 			  image[row][col] = multiplyArrays(input,imageArray,weightedSum);
 		  }
+		  /*The resulting values from the transformation are stored in the 2d Pixel array
+		   * called "image"
+		   */
 		  this.setData(image);
 	  }
   }
@@ -138,19 +151,30 @@ public class PixelImage
    */
   public Pixel multiplyArrays(int[][] array, Pixel[][] imageArray, int weightedSum)
   {
+	  //initialize integer variables for each color channel in Pixel
 	  int sumRed = 0;
 	  int sumGreen = 0;
 	  int sumBlue = 0;
-	  
+	  //The outer for loop iterates over the rows
 	  for(int i=0; i<3; i++)
 	  {
+		  //the inner for loop iterates over each column in the row
 		  for(int j=0; j<3; j++)
 		  {
+			  /*the values of the red, green, and blue channels of
+			   * Pixel[][] imageArray are multiplied by the value
+			   * of the int from "array" at [i][j]. These values
+			   * are stored in corresponding int variables sumRed,
+			   *sumGreen, and sumBlue
+			   */
 			  sumRed += array[i][j]*imageArray[i][j].red;
 			  sumGreen += array[i][j]*imageArray[i][j].green;
 			  sumBlue += array[i][j]*imageArray[i][j].blue;
 		  }
 	  }
+	  /*this if block applies the weighted sum only if the resulting value is
+	  *between 0 and 255. Otherwise, the value of sumRed is set to 0 or 255.
+	  */
 	  if((sumRed / weightedSum)>0 && (sumRed / weightedSum)<255){
 		  sumRed /= weightedSum;
 	  }else if((sumRed / weightedSum)<0){
@@ -158,7 +182,9 @@ public class PixelImage
 	  }else if((sumRed / weightedSum)>255){
 		  sumRed = 255;
 	  }
-	  
+	  /*this if block applies the weighted sum only if the resulting value is
+		  *between 0 and 255. Otherwise, the value of sumGreen is set to 0 or 255.
+		  */
 	  if((sumGreen / weightedSum)>0 && (sumGreen / weightedSum)<255){
 		  sumGreen /= weightedSum;
 	  }else if((sumGreen / weightedSum)<0){
@@ -166,7 +192,9 @@ public class PixelImage
 	  }else if((sumGreen / weightedSum)>255){
 		  sumGreen = 255;
 	  }
-	  
+	  /*this if block applies the weighted sum only if the resulting value is
+		  *between 0 and 255. Otherwise, the value of sumBlue is set to 0 or 255.
+		  */
 	  if((sumBlue / weightedSum)>0 && (sumBlue / weightedSum)<255){
 		  sumBlue /= weightedSum;
 	  }else if((sumBlue / weightedSum)<0){
@@ -174,28 +202,26 @@ public class PixelImage
 	  }else if((sumBlue / weightedSum)>255){
 		  sumBlue = 255;
 	  }
-	
-	  
+	  /*The following if block is my attempt at filtering out the red, green,
+	   * and blue dots that appear after running UnsharpFilter
+	   * */
+	  if((sumRed > 220) && (sumGreen < 20)&&(sumBlue < 20)){
+		  sumRed=0;
+		  sumGreen=0;
+		  sumBlue=0;
+	  }else if((sumRed < 20) && (sumGreen > 220)&&(sumBlue < 20)){
+		  sumRed=0;
+		  sumGreen=0;
+		  sumBlue=0;
+	  }else if((sumRed < 20) && (sumGreen < 20)&&(sumBlue > 220)){
+		  sumRed=0;
+		  sumGreen=0;
+		  sumBlue=0;
+	  }
+	  //the three color channels of a new Pixel, called sum are stored.
 	  Pixel sum = new Pixel(sumRed,sumGreen,sumBlue);
+	  
 	  return sum;
   }
 }
-/*
- *   if(sumRed>255){
-		  sumRed = 255;
-	  }
-	  else if(sumRed<0){
-		  sumRed = 0;
-	  }
-	  else if(sumGreen>255){
-		  sumGreen = 255;
-	  }
-	  else if(sumGreen<255){
-		  sumGreen = 0;
-	  }	  
-	  else if(sumBlue>255){
-		  sumBlue = 255;
-	  }
-	  else if(sumBlue<255){
-		  sumBlue = 0;
-	  }*/
+
